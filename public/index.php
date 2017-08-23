@@ -49,6 +49,12 @@ $container['pdo'] = function($container) {
     return $pdo;
 };
 
+$container['paging'] = function($container) {
+    $pagingUtil = PagingUtil::getInstance();
+
+    return $pagingUtil;
+};
+
 //error Handler
 $container['errorHandler'] = function ($container) {
     return function ($request, $response, $exception) use ($container) {
