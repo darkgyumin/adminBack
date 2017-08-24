@@ -18,6 +18,8 @@ class PagingUtil {
 	var $total_page;
 	var $first;
 	var $last;
+	var $first_page = '';
+	var $last_page = '';
 	var $paging;
 	var $num;
 
@@ -56,48 +58,19 @@ class PagingUtil {
 		if($block >= $total_block){
 			$last_page=$this -> total_page;
 		}
-		
-		//$paging = $paging."<li><a href='&page=1'>처음</a></li>";
 
 		if($block > 1){
-			$is_page = $first_page;
-			$paging = $paging."<li><a href='#Prev' onclick='return false;'><input type='hidden' name='page' value='".$is_page."' />&laquo;</a></li>";
-		} else {
-			$paging = $paging."<li><a href='#Prev' onclick='return false;'>&laquo;</a></li>";
-		}
-		
-		/*
-		if($last_page >= $this -> page && $this -> page != 1) {
-			$paging = $paging."<a href='$isfile?parent_menu_code=".$tempMap['PARENT_MENU_CODE']."&menu_code=".$tempMap['MENU_CODE']."&page=".($this -> page-1)."'><</a> ";
-		} else {
-			$paging = $paging."< ";
-		}
-		*/
+			$this -> first_page = $is_page = $first_page;
+		} else {}
 
 		for($link_page = $first_page+1; $link_page<=$last_page; $link_page++){
-			if($this -> page == $link_page){
-				$paging = $paging."<li class='selected'><a href='#".$link_page."' onclick='return false;'><strong>".$link_page."</strong></a></li>";
-			} else {
-				$paging = $paging."<li><a href='#".$link_page."' onclick='return false;'><input type='hidden' name='page' value='".$link_page."' />".$link_page."</a></li>";
-			}
+			$paging .= $link_page;
+			if($link_page != $last_page) $paging .= ' ';
 		}
-		
-		/*
-		if($this -> page < $this -> total_page) {
-			$paging = $paging."<a href='$isfile?parent_menu_code=".$tempMap['PARENT_MENU_CODE']."&menu_code=".$tempMap['MENU_CODE']."&page=".($this -> page+1)."'>></a> ";
-		} else {
-			$paging = $paging."> ";
-		}
-		*/
 		
 		if($block < $total_block){
-			$is_page = $last_page+1;
-			$paging = $paging."<li><a href='#Prev' onclick='return false;'><input type='hidden' name='page' value='".$is_page."' />&raquo;</a></li>";
-		} else {
-			$paging = $paging."<li><a href='#Next' onclick='return false;'>&raquo;</a></li>";
-		}
-		
-		//$paging = $paging."<li><a href='&page=".$this -> total_page."'>맨뒤</a></li>";
+			$this -> last_page = $is_page = $last_page+1;
+		} else {}
 		
 		if($this -> total_page == 0) $paging = "";
 
@@ -108,8 +81,8 @@ class PagingUtil {
 
 		$tempMap['paging']		= $this -> paging;
 		$tempMap['total_page']	= $this -> total_page;
-		$tempMap['first']		= $this -> first;
-		$tempMap['last']		= $this -> last;
+		$tempMap['first_page']	= $this -> first_page;
+		$tempMap['last_page']	= $this -> last_page;
 		$tempMap['num']			= $this -> num;
 
 		return $tempMap;
