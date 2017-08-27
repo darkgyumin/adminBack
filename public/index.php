@@ -6,6 +6,7 @@ ini_set("display_errors", 1);
 header('Content-type: text/plain; charset=utf-8');
 
 require_once './../vendor/autoload.php';
+require_once './../class/CommonUtil.php';
 require_once './../class/PagingUtil.php';
 
 use Firebase\JWT\JWT;
@@ -53,6 +54,12 @@ $container['paging'] = function($container) {
     $pagingUtil = PagingUtil::getInstance();
 
     return $pagingUtil;
+};
+
+$container['common'] = function($container) {
+    $commonUtil = CommonUtil::getInstance();
+
+    return $commonUtil;
 };
 
 //error Handler
